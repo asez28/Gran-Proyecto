@@ -28,12 +28,10 @@ router.post("/add-to-cart", authRequired, async (req, res) => {
 
     await cartItem.save();
 
-    res
-      .status(200)
-      .json({
-        message: "Producto agregado al carrito correctamente",
-        cartItem: cartItem,
-      });
+    res.status(200).json({
+      message: "Producto agregado al carrito correctamente",
+      cartItem: cartItem,
+    });
   } catch (error) {
     console.error(error);
     res
@@ -79,12 +77,10 @@ router.delete(
         await cartItem.save();
       }
 
-      res
-        .status(200)
-        .json({
-          message: "Se ha eliminado una unidad del producto del carrito",
-          cartItem: cartItem,
-        });
+      res.status(200).json({
+        message: "Se ha eliminado una unidad del producto del carrito",
+        cartItem: cartItem,
+      });
     } catch (error) {
       console.error(error);
       res
@@ -114,23 +110,19 @@ router.put(
       }
 
       cartItem.quantity += 1;
-      cartItem.price += cartItem.basePrice; 
+      cartItem.price += cartItem.basePrice;
 
       await cartItem.save();
 
-      res
-        .status(200)
-        .json({
-          message: "Se ha aumentado la cantidad del producto en el carrito",
-          cartItem: cartItem,
-        });
+      res.status(200).json({
+        message: "Se ha aumentado la cantidad del producto en el carrito",
+        cartItem: cartItem,
+      });
     } catch (error) {
       console.error(error);
-      res
-        .status(500)
-        .json({
-          message: "Error al aumentar la cantidad del artículo en el carrito",
-        });
+      res.status(500).json({
+        message: "Error al aumentar la cantidad del artículo en el carrito",
+      });
     }
   }
 );
@@ -161,23 +153,19 @@ router.put(
       }
 
       cartItem.quantity -= 1;
-      cartItem.price -= cartItem.basePrice; 
+      cartItem.price -= cartItem.basePrice;
 
       await cartItem.save();
 
-      res
-        .status(200)
-        .json({
-          message: "Se ha reducido la cantidad del producto en el carrito",
-          cartItem: cartItem,
-        });
+      res.status(200).json({
+        message: "Se ha reducido la cantidad del producto en el carrito",
+        cartItem: cartItem,
+      });
     } catch (error) {
       console.error(error);
-      res
-        .status(500)
-        .json({
-          message: "Error al reducir la cantidad del artículo en el carrito",
-        });
+      res.status(500).json({
+        message: "Error al reducir la cantidad del artículo en el carrito",
+      });
     }
   }
 );
