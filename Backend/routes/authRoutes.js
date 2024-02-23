@@ -3,10 +3,12 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const { createAccessToken } = require("../libs/jwt.js");
 const authRequired = require("../middlewares/validateToken.js");
+const validateSchema = require("../middlewares/validatorMiddlewares.js");
+const { registerSchema, loginSchema } = require("../schemas/authSchemas.js");
 
 const router = express.Router();
 
-router.post("/register", async (req, res) => {
+router.post("/register", validateSchema(registerSchema), async (req, res) => {
   try {
     const {
       username,
@@ -79,7 +81,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", validateSchema(loginSchema), async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
