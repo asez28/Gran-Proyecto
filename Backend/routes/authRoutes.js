@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const { createAccessToken } = require("../libs/jwt.js");
+const authRequired = require("../middlewares/validateToken.js");
 
 const router = express.Router();
 
@@ -113,5 +114,24 @@ router.post("/logout", async (req, res) => {
   });
   return res.sendStatus(200);
 });
+
+router.get("/profile", authRequired, async (req, res) => {
+  const userFound = await User.findById(req.user.id)
+
+  if (!userFound) return res.status(400).json({message: "User not found"});
+
+  return res.json({
+    id: userFound._id,
+    username: userFound.username,
+    name: userFound.name,
+    lastName: userFound.lastName,
+    email: userFound.email,
+    address: userFound.address,
+    city: userFound.city,
+    phoneNumber: userFound.phoneNumber,
+    imageProfile: userFound.imageProfile
+  })
+  res.send('profile')
+})
 
 module.exports = router;
