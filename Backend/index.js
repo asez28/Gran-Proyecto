@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rutas
+
 app.use("/api/auth", authRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", sendRoutes);
