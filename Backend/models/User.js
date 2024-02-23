@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   address: { type: String, required: true },
   city: { type: String, required: true },
   phoneNumber: { type: String, unique: true, required: true },
-  imageProfile: { type: String, default: "IMG/default.png" },
+  imageProfile: { type: String, default: "/IMG/default.png" },
 });
 
 const User = mongoose.model("User", userSchema);

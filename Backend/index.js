@@ -4,6 +4,9 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const sendRoutes = require("./routes/sendRoutes");
+const path = require('path');
+const cors = require("cors");
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,7 +19,8 @@ mongoose.connect("mongodb://localhost:27017/FinalDataBase", {
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api", cartRoutes);
