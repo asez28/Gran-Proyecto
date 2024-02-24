@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch&family=Nova+Square&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 body {
   background-image: url("/IMG/625497.jpg");
@@ -5,5 +7,6 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: 'Poppins';
-  color: rgb(195, 195, 195);
+  color: rgb(215, 213, 213);
 }
+
