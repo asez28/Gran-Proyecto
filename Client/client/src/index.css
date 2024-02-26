@@ -10,3 +10,10 @@ body {
   color: rgb(215, 213, 213);
 }
 
+.formRegister {
+  background-color: #000000b3;
+}
+
+.form-outline input.form-control {
+  padding-top: 1.5rem; /* Ajustar según sea necesario */
+}

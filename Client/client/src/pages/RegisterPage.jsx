@@ -1,11 +1,12 @@
-import React from 'react'
+import RefisterForm from "../components/RefisterForm";
 
 function RegisterPage() {
+
   return (
-    <div>
-      RegisterPage
-    </div>
-  )
+    <>
+      <RefisterForm/>
+    </>
+  );
 }
 
-export default RegisterPage
+export default RegisterPage;
