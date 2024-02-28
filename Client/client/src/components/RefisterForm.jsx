@@ -87,7 +87,7 @@ function RefisterForm() {
 </div>
 </div>
 </div>
-      <button data-mdb-ripple-init type="button" className="btn btn-primary btn-block mb-4" onClick={handleSubmit}>Sign up</button>
+      <button data-mdb-ripple-init type="button" className="btn btn-primary btn-block mb-4">Sign up</button>
     </form>
   </div>
   )
