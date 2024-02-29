@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   address: { type: String, required: true },
   city: { type: String, required: true },
-  phoneNumber: { type: String, unique: true, required: true },
+  phoneNumber: { type: Number, unique: true, required: true },
   imageProfile: { type: String, default: "/IMG/default.png" },
 });
 
