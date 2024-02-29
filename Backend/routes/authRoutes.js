@@ -37,11 +37,14 @@ router.post("/register", validateSchema(registerSchema), async (req, res) => {
         .json({ message: "Todos los campos son obligatorios" });
     }
 
+    const userFound = await User.findOne({ email });
+    if (userFound) return res.status(400).json(["The email is already in use"]);
+
     const existingUser = await User.findOne({
       $or: [{ username }, { email }, { phoneNumber }],
     });
     if (existingUser) {
-      return res.status(400).json({ message: "El Usuario ya existe" });
+      return res.status(400).json(["El Usuario ya existe"]);
     }
 
     const hashedPassword = await bcrypt.hash(password, 8);
@@ -118,9 +121,9 @@ router.post("/logout", async (req, res) => {
 });
 
 router.get("/profile", authRequired, async (req, res) => {
-  const userFound = await User.findById(req.user.id)
+  const userFound = await User.findById(req.user.id);
 
-  if (!userFound) return res.status(400).json({message: "User not found"});
+  if (!userFound) return res.status(400).json({ message: "User not found" });
 
   return res.json({
     id: userFound._id,
@@ -131,9 +134,9 @@ router.get("/profile", authRequired, async (req, res) => {
     address: userFound.address,
     city: userFound.city,
     phoneNumber: userFound.phoneNumber,
-    imageProfile: userFound.imageProfile
-  })
-  res.send('profile')
-})
+    imageProfile: userFound.imageProfile,
+  });
+  res.send("profile");
+});
 
 module.exports = router;

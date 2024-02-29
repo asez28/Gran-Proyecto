@@ -1,9 +1,20 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { registerRequest } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function RefisterForm() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { signup, isAuthenticated, errors: registerErrors } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/shop");
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const cityInput = document.getElementById("city");
@@ -32,8 +43,7 @@ function RefisterForm() {
   }, []);
 
   const onSubmit = handleSubmit(async (values) => {
-    const res = await registerRequest(values);
-    console.log(res);
+    signup(values);
   });
 
   return (
@@ -50,6 +60,11 @@ function RefisterForm() {
           borderRadius: "8px",
         }}
       >
+      { registerErrors.map((error, i) => (
+        <div className="p-3 mb-2 bg-danger text-white" key={i}>
+          {error}
+        </div>
+      ))}
         <h1 className="text-center">Register Now!</h1>
         <div className="row mb-4 d-flex justify-content-center align-items-center">
           <div className="col-5 m-2 border border-dark rounded ">
@@ -63,6 +78,7 @@ function RefisterForm() {
               <label className="form-label" htmlFor="form3Example1">
                 First name
               </label>
+              {errors.name && <p className="text-danger">First Name is required</p>}
             </div>
           </div>
           <div className="col-5 m-2 border border-dark rounded">
@@ -75,6 +91,7 @@ function RefisterForm() {
               <label className="form-label" htmlFor="form3Example2">
                 Last name
               </label>
+              {errors.lastName && <p className="text-danger">Last Name is required</p>}
             </div>
           </div>
         </div>
@@ -89,6 +106,7 @@ function RefisterForm() {
               <label className="form-label" htmlFor="form3Example1">
                 Email 📧
               </label>
+              {errors.email && <p className="text-danger">Email is required</p>}
             </div>
           </div>
           <div className="col-5 m-2 border border-dark rounded">
@@ -101,6 +119,7 @@ function RefisterForm() {
               <label className="form-label" htmlFor="form3Example2">
                 Password
               </label>
+              {errors.password && <p className="text-danger">Password is required</p>}
             </div>
           </div>
         </div>
@@ -115,6 +134,7 @@ function RefisterForm() {
               <label className="form-label" htmlFor="form3Example1">
                 Username 👨🏻‍💼
               </label>
+              {errors.username && <p className="text-danger">username is required</p>}
             </div>
           </div>
           <div className="col-5 m-2 border border-dark rounded">
@@ -127,6 +147,7 @@ function RefisterForm() {
               <label className="form-label" htmlFor="form3Example2">
                 Phone Number 📱
               </label>
+              {errors.phoneNumber && <p className="text-danger">Phone Number is required</p>}
             </div>
           </div>
         </div>
@@ -142,6 +163,7 @@ function RefisterForm() {
               <label className="form-label" htmlFor="form3Example1">
                 City
               </label>
+              {errors.city && <p className="text-danger">City is required</p>}
             </div>
           </div>
           <div className="col-5 m-2 border border-dark rounded">
@@ -155,6 +177,7 @@ function RefisterForm() {
               <label className="form-label" htmlFor="form3Example2">
                 Address 🗺️
               </label>
+              {errors.address && <p className="text-danger">Address is required</p>}
             </div>
           </div>
           <div className="col-5 m-2 border border-dark rounded">
