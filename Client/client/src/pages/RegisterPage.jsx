@@ -197,7 +197,7 @@ function RefisterForm() {
         <button
           data-mdb-ripple-init
           type="submit"
-          className="btn btn-primary btn-block mb-4"
+          className="btn-block mb-4"
         >
           Sign Up
         </button>
