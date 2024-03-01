@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function RefisterForm() {
   const {
@@ -13,7 +13,7 @@ function RefisterForm() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/shop");
+    if (isAuthenticated) navigate("/login");
   }, [isAuthenticated]);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function RefisterForm() {
         }}
       >
       { registerErrors.map((error, i) => (
-        <div className="p-3 mb-2 bg-danger text-white" key={i}>
+        <div className="p-3 mb-2 bg-danger text-white text-center" key={i}>
           {error}
         </div>
       ))}
@@ -197,10 +197,13 @@ function RefisterForm() {
         <button
           data-mdb-ripple-init
           type="submit"
-          className="btn-block mb-4"
+          className="btn-rounded"
         >
           Sign Up
         </button>
+        <p className="d-flex justify-content-around m-2">Already have an account, So lets: 
+        <Link to="/login" className="btn btn-outline-info btn-rounded" data-mdb-ripple-init  data-mdb-ripple-color="dark">Sign In</Link>
+        </p>
       </form>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HomePagescontainer = () => {
   return (
@@ -25,7 +26,7 @@ const HomePagescontainer = () => {
             </p>
             <button className="glowing-btn">
               <a className="text-white">
-                <span className="glowing-txt">ENTER!</span>
+                <Link to="shop" className="glowing-txt text-white">ENTER!</Link>
               </a>
             </button>
           </div>

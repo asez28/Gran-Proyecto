@@ -4,6 +4,12 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import { AuthProvider } from "./context/AuthContext";
+import Shop from "./pages/Shop";
+import Checkout from "./pages/Checkout";
+import Profile from "./pages/Profile";
+import Gallery from "./pages/Gallery";
+import AboutUs from "./pages/AboutUs";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -13,11 +19,14 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/shop" element={<h1>Shop</h1>} />
-          <Route path="/checkout" element={<h1>checkout</h1>} />
-          <Route path="/profile" element={<h1>Profile</h1>} />
-          <Route path="/gallery" element={<h1>Gallery</h1>} />
-          <Route path="/about-us" element={<h1>About Us</h1>} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/about-us" element={<AboutUs />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

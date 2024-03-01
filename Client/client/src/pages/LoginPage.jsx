@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const {register, handleSubmit, formState: {errors}} = useForm();
+  const {signin, isAuthenticated ,errors: signinErrors} = useAuth()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, [isAuthenticated]);
 
   const onSubmit = handleSubmit(data=> {
-    console.log(data)
+    signin(data)
   })
 
   return (
@@ -30,18 +38,21 @@ function LoginPage() {
             borderRadius: "8px",
           }}
         >
+        { signinErrors.map((error, i) => (
+          <div className="p-3 mb-2 bg-danger text-white text-center" key={i}>
+            {error}
+          </div>
+        ))}
           <h1 className="text-center">Log in</h1>
           <div className="row mb-4 d-flex justify-content-center align-items-center">
             <div className="m-2 border border-dark rounded ">
               <div data-mdb-input-init className="form-outline">
-                <input type="text" className="form-control"  {...register("emailOrUsername", {
-                  validate: value => value.trim() !== '' || 'Email or Username is required'
-                })}/>
+                <input type="text" className="form-control"  {...register("emailOrUsername", { required: true })} />
                 <label className="form-label" htmlFor="form3Example1">
                   Email 📧 or UserName 👨🏻‍💼
                 </label>
                 {errors.emailOrUsername && (
-                  <p className="text-danger">{errors.emailOrUsername.message}</p>
+                  <p className="text-danger">Email or UserName is required</p>
                 )}
               </div>
             </div>
@@ -56,6 +67,9 @@ function LoginPage() {
             </div>
           </div>
           <button type="submit">Sign IN</button>
+          <p className="d-flex justify-content-around m-2">
+          Don't have an account? <Link className="btn btn-outline-info btn-rounded" to="/register">Sign Up</Link>
+        </p>
         </form>
       </div>
     </div>

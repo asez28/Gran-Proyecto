@@ -5,6 +5,8 @@ const { createAccessToken } = require("../libs/jwt.js");
 const authRequired = require("../middlewares/validateToken.js");
 const validateSchema = require("../middlewares/validatorMiddlewares.js");
 const { registerSchema, loginSchema } = require("../schemas/authSchemas.js");
+const jwt = require("jsonwebtoken");
+const {TOKEN_SECRET} = require("../config.js")
 
 const router = express.Router();
 
@@ -86,14 +88,14 @@ router.post("/register", validateSchema(registerSchema), async (req, res) => {
 
 router.post("/login", validateSchema(loginSchema), async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { emailOrUsername, password } = req.body;
 
-    const user = await User.findOne({ $or: [{ username }, { email }] });
+    const user = await User.findOne({ $or: [{ username: emailOrUsername }, { email: emailOrUsername }] });
 
     if (!user) {
       return res
         .status(400)
-        .json({ message: "Nombre de usuario, email o password incorrectos" });
+        .json(["Username or Email are not valid, try again!"]);
     }
 
     const match = await bcrypt.compare(password, user.password);
@@ -101,10 +103,11 @@ router.post("/login", validateSchema(loginSchema), async (req, res) => {
     if (!match) {
       return res
         .status(400)
-        .json({ message: "Nombre de usuario, email o password incorrectos" });
+        .json(["Password is incorrect, try again!"]);
     }
 
     const token = await createAccessToken({ id: user._id });
+    res.cookie("token", token);
 
     res.status(200).json({ message: "Inicio de sesion", token });
   } catch (error) {
@@ -119,6 +122,26 @@ router.post("/logout", async (req, res) => {
   });
   return res.sendStatus(200);
 });
+
+router.get('/verify', async (req, res) => {
+   const {token} = req.cookies
+
+   if(!token) return res.status(401).json({message: "Unauthorized"});
+
+   jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+    if(err) return res.status(401).json({message: "Unauthorized"});
+
+    const userFound = await User.findById(user.id)
+    if(!userFound) return res.status(401).json({message: "Unauthorized"})
+
+    return res.json({
+      id:userFound._id,
+      username: userFound.username,
+      email: userFound.email,
+    })
+   })
+
+})
 
 router.get("/profile", authRequired, async (req, res) => {
   const userFound = await User.findById(req.user.id);
