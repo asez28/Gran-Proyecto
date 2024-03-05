@@ -66,7 +66,7 @@ function LoginPage() {
               </div>
             </div>
           </div>
-          <button type="submit">Sign IN</button>
+          <button className="button1" type="submit">Sign IN</button>
           <p className="d-flex justify-content-around m-2">
           Don't have an account? <Link className="btn btn-outline-info btn-rounded" to="/register">Sign Up</Link>
         </p>

@@ -1,52 +1,114 @@
+import { useState } from "react";
+import axios from "../api/axios";
+
 export const addCarrito = (product, carritoObjeto, setCarritoObjeto) => {
-  const existingProductIndex = carritoObjeto.findIndex(item => item.id === product.id);
+  const existingProductIndex = carritoObjeto.findIndex(
+    (item) => item.id === product.id
+  );
 
   if (existingProductIndex !== -1) {
-    const updatedCarrito = carritoObjeto.map((item, index) => {
-      if (index === existingProductIndex) {
-        return { ...item, cantidad: item.cantidad + 1 };
+    const updatedCarrito = carritoObjeto.map((item) => {
+      console.log("Adding product to cart:", product);
+      if (item.id === product.id) {
+        return {
+          ...item,
+          cantidad: item.cantidad + 1,
+          price: item.price + product.price,
+        };
       }
       return item;
     });
     setCarritoObjeto(updatedCarrito);
+    sentDatosBackend(updatedCarrito);
   } else {
-    setCarritoObjeto([...carritoObjeto, { ...product, cantidad: 1 }]);
+    const newCarrito = [
+      ...carritoObjeto,
+      {
+        ...product,
+        cantidad: 1,
+        price: product.price * 1,
+      },
+    ];
+    setCarritoObjeto(newCarrito);
+    sentDatosBackend(newCarrito);
   }
-
 };
 
-export const drawShop = (carritoObjeto, btnIncreas, btnDecrease) => {
-    return carritoObjeto.map((item) => (
-      <div key={item.id} className="list-group-item">
-        <h5>{item.title}</h5>
-        <p>Cantidad: {item.cantidad}</p>
-        <p>Precio: {item.price * item.cantidad}</p>
-        <img src={item.thumbnailUrl} alt="producto" />
-        <button onClick={() => btnIncreas(item.id)}>Incrementar</button>
-        <button onClick={() => btnDecrease(item.id)}>Decrementar</button>
-      </div>
-    ));
-  };
+const sentDatosBackend = (carrito) => {
+  console.log(carrito);
+  axios
+    .post("/add-to-cart", { carrito })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const increaseQuantity = async (
+  productName,
+  carritoObjeto,
+  setCarritoObjeto
+) => {
+  try {
+    const response = await axios.put(`/increase-cantidad/${productName}`);
+    console.log(response.data);
+
+    const updatedCarrito = carritoObjeto.map((item) => {
+      if (item.title === productName) {
+        return {
+          ...item,
+          cantidad: item.cantidad + 1,
+          price: item.price + item.basePrice, // Actualiza el precio sumando el precio base al precio actual
+        };
+      }
+      return item;
+    });
+    setCarritoObjeto(updatedCarrito);
+  } catch (error) {
+    console.error("Error increasing quantity:", error);
+  }
+};
+
+export const decreaseQuantity = async (
+  productName,
+  carritoObjeto,
+  setCarritoObjeto
+) => {
+  try {
+    const response = await axios.delete(`/decrease-cantidad/${productName}`);
+
+    const updatedCarrito = carritoObjeto
+      .map((item) => {
+        if (item.title === productName) {
+          const newCantidad = Math.max(item.cantidad - 1, 0);
+          if (newCantidad === 0) {
+            return null;
+          } else {
+            return {
+              ...item,
+              cantidad: newCantidad,
+              price: item.price - item.basePrice,
+            };
+          }
+        }
+        return item;
+      })
+      .filter((item) => item !== null);
+
+    setCarritoObjeto(updatedCarrito);
+  } catch (error) {
+    console.error("Error decreasing quantity:", error);
+  }
+};
 
 export const drawTotal = (carritoObjeto) => {
-    const total = carritoObjeto.reduce((acc, item) => acc + item.price * item.cantidad, 0);
-    return <p>Total: {total}</p>;
-  };
-
-export const btnIncreas = (id, carritoObjeto, setCarritoObjeto) => {
-    const updatedCarrito = carritoObjeto.map((item) =>
-      item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
-    );
-    setCarritoObjeto(updatedCarrito);
-  };
-
-export const btnDecrease = (id, carritoObjeto, setCarritoObjeto) => {
-    const updatedCarrito = carritoObjeto.map((item) =>
-      item.id === id && item.cantidad > 0 ? { ...item, cantidad: item.cantidad - 1 } : item
-    );
-    setCarritoObjeto(updatedCarrito);
-  };
+  const total = carritoObjeto.reduce((acc, item) => {
+    return acc + item.price * item.cantidad;
+  }, 0);
+};
 
 export const btnClean = (setCarritoObjeto) => {
-    setCarritoObjeto([]);
-  };
+  setCarritoObjeto([]);
+};

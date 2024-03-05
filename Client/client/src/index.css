@@ -18,7 +18,7 @@ body {
   padding-top: 1.5rem; /* Ajustar según sea necesario */
 }
 
-button {
+.button1 {
   position: relative;
   padding: 10px 20px;
   border-radius: 7px;
@@ -36,7 +36,7 @@ button {
   transition: all 0.2s ease-in;
 }
 
-button:hover {
+.button1:hover {
   background: rgb(61, 106, 255);
   box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
   -webkit-transition: all 0.2s ease-out;
@@ -44,13 +44,13 @@ button:hover {
   transition: all 0.2s ease-out;
 }
 
-button:hover::before {
+.button1:hover::before {
   -webkit-animation: sh02 0.5s 0s linear;
   -moz-animation: sh02 0.5s 0s linear;
   animation: sh02 0.5s 0s linear;
 }
 
-button::before {
+.button1::before {
   content: '';
   display: block;
   width: 0px;
@@ -84,7 +84,7 @@ button::before {
   }
 }
 
-button:active {
+.button1:active {
   box-shadow: 0 0 0 0 transparent;
   -webkit-transition: box-shadow 0.2s ease-in;
   -moz-transition: box-shadow 0.2s ease-in;

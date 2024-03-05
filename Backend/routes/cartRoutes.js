@@ -7,36 +7,40 @@ router.get("/buycar", authRequired, (req, res) => res.send("shoping"));
 
 router.post("/add-to-cart", authRequired, async (req, res) => {
   try {
-    const { productId, quantity, productName, price, basePrice } = req.body;
+    const { carrito } = req.body; 
     const userId = req.user.id;
 
-    let cartItem = await CartItem.findOne({ userId, productId });
+    for (const item of carrito) { 
+      const { id, cantidad, title, price, basePrice, thumbnailUrl } = item; 
 
-    if (cartItem) {
-      cartItem.quantity += parseInt(quantity);
-      cartItem.price += parseInt(price);
-    } else {
-      cartItem = new CartItem({
-        userId: userId,
-        productId: productId,
-        productName: productName,
-        quantity: parseInt(quantity),
-        price: parseInt(price),
-        basePrice: basePrice,
-      });
+      let cartItem = await CartItem.findOne({ userId, id });
+
+      if (cartItem) {
+        cartItem.cantidad = parseInt(cantidad);
+        cartItem.price = parseInt(price);
+      } else {
+        cartItem = new CartItem({
+          userId: userId,
+          id: id,
+          title: title,
+          cantidad: parseInt(cantidad),
+          price: parseInt(price),
+          basePrice: basePrice,
+          thumbnailUrl: thumbnailUrl
+        });
+      }
+
+      await cartItem.save();
     }
 
-    await cartItem.save();
-
     res.status(200).json({
-      message: "Producto agregado al carrito correctamente",
-      cartItem: cartItem,
+      message: "Productos agregados al carrito correctamente",
     });
   } catch (error) {
     console.error(error);
     res
       .status(500)
-      .json({ message: "Error al agregar el producto al carrito" });
+      .json({ message: "Error al agregar los productos al carrito" });
   }
 });
 
@@ -46,15 +50,15 @@ router.get("/get-card-item", authRequired, async (req, res) => {
 });
 
 router.delete(
-  "/remove-from-cart/:productName",
+  "/decrease-cantidad/:title",
   authRequired,
   async (req, res) => {
     try {
-      const productName = req.params.productName;
+      const title = req.params.title;
       const userId = req.user.id;
 
       let cartItem = await CartItem.findOne({
-        productName: productName,
+        title: title,
         userId: userId,
       });
 
@@ -64,13 +68,13 @@ router.delete(
           .json({ message: "No se encontró el artículo en el carrito" });
       }
 
-      if (cartItem.quantity === 1) {
+      if (cartItem.cantidad === 1) {
         await CartItem.findOneAndDelete({
-          productName: productName,
+          title: title,
           userId: userId,
         });
       } else {
-        cartItem.quantity -= 1;
+        cartItem.cantidad -= 1;
 
         cartItem.price -= cartItem.basePrice;
 
@@ -91,15 +95,15 @@ router.delete(
 );
 
 router.put(
-  "/increase-quantity/:productName",
+  "/increase-cantidad/:title",
   authRequired,
   async (req, res) => {
     try {
-      const productName = req.params.productName;
+      const title = req.params.title;
       const userId = req.user.id;
 
       let cartItem = await CartItem.findOne({
-        productName: productName,
+        title: title,
         userId: userId,
       });
 
@@ -109,7 +113,7 @@ router.put(
           .json({ message: "No se encontró el artículo en el carrito" });
       }
 
-      cartItem.quantity += 1;
+      cartItem.cantidad += 1;
       cartItem.price += cartItem.basePrice;
 
       await cartItem.save();
@@ -127,47 +131,5 @@ router.put(
   }
 );
 
-router.put(
-  "/decrease-quantity/:productName",
-  authRequired,
-  async (req, res) => {
-    try {
-      const productName = req.params.productName;
-      const userId = req.user.id;
-
-      let cartItem = await CartItem.findOne({
-        productName: productName,
-        userId: userId,
-      });
-
-      if (!cartItem) {
-        return res
-          .status(404)
-          .json({ message: "No se encontró el artículo en el carrito" });
-      }
-
-      if (cartItem.quantity === 1) {
-        return res
-          .status(400)
-          .json({ message: "La cantidad mínima permitida es 1" });
-      }
-
-      cartItem.quantity -= 1;
-      cartItem.price -= cartItem.basePrice;
-
-      await cartItem.save();
-
-      res.status(200).json({
-        message: "Se ha reducido la cantidad del producto en el carrito",
-        cartItem: cartItem,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: "Error al reducir la cantidad del artículo en el carrito",
-      });
-    }
-  }
-);
 
 module.exports = router;
