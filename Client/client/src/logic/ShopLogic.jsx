@@ -8,7 +8,6 @@ export const addCarrito = (product, carritoObjeto, setCarritoObjeto) => {
 
   if (existingProductIndex !== -1) {
     const updatedCarrito = carritoObjeto.map((item) => {
-      console.log("Adding product to cart:", product);
       if (item.id === product.id) {
         return {
           ...item,
@@ -35,11 +34,9 @@ export const addCarrito = (product, carritoObjeto, setCarritoObjeto) => {
 };
 
 const sentDatosBackend = (carrito) => {
-  console.log(carrito);
   axios
     .post("/add-to-cart", { carrito })
     .then((response) => {
-      console.log(response.data);
     })
     .catch((error) => {
       console.error(error);
@@ -103,12 +100,13 @@ export const decreaseQuantity = async (
   }
 };
 
-export const drawTotal = (carritoObjeto) => {
-  const total = carritoObjeto.reduce((acc, item) => {
-    return acc + item.price * item.cantidad;
-  }, 0);
+
+export const btnClean = async (setCarritoObjeto) => {
+    try {
+        await axios.delete('/delete-cart'); 
+        setCarritoObjeto([]);
+    } catch (error) {
+        console.error('Error al limpiar el carrito:', error);
+    }
 };
 
-export const btnClean = (setCarritoObjeto) => {
-  setCarritoObjeto([]);
-};

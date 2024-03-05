@@ -1,0 +1,58 @@
+.deletebutton {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cc0000;
+    background-color: #e50000;
+    overflow: hidden;
+    border-radius: 25px;
+  }
+  
+  .deletebutton, .button__icon, .button__text {
+    transition: all 0.3s;
+  }
+  
+  .deletebutton .button__text {
+    transform: translateX(25px);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .deletebutton .button__icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: #cc0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .deletebutton .svg {
+    width: 20px;
+  }
+  
+  .deletebutton:hover {
+    background: #cc0000;
+  }
+  
+  .deletebutton:hover .button__text {
+    color: transparent;
+  }
+  
+  .deletebutton:hover .button__icon {
+    width: 148px;
+    transform: translateX(0);
+  }
+  
+  .deletebutton:active .button__icon {
+    background-color: #b20000;
+  }
+  
+  .deletebutton:active {
+    border: 1px solid #b20000;
+  }

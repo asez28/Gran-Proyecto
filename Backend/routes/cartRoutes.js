@@ -94,6 +94,17 @@ router.delete(
   }
 );
 
+router.delete('/delete-cart', async (req, res) => {
+  try {
+      await CartItem.deleteMany({});
+      res.status(200).json({ message: 'Carrito de compras vaciado exitosamente' });
+  } catch (error) {
+      console.error('Error al vaciar el carrito de compras:', error);
+      res.status(500).json({ message: 'Error al vaciar el carrito de compras' });
+  }
+});
+
+
 router.put(
   "/increase-cantidad/:title",
   authRequired,
