@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HomePagescontainer = () => {
   return (
-    <div className="container">
+    <div className="container" style={{ paddingTop: "120px"}}>
       <div className="row text-center">
         <div
           className="card col-lg-4 col-md-6 mt-5 text-white"
@@ -25,9 +25,7 @@ const HomePagescontainer = () => {
               last Fifa to the last Call of duty. The Best: AT GREAT PRICES!{" "}
             </p>
             <button className="glowing-btn">
-              <a className="text-white">
                 <Link to="shop" className="glowing-txt text-white">ENTER!</Link>
-              </a>
             </button>
           </div>
         </div>

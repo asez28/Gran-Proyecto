@@ -49,7 +49,7 @@ function RefisterForm() {
   return (
     <div
       className="container-fluid d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
+      style={{ height: "100vh", paddingTop: "130px" }}
     >
       <form
         onSubmit={onSubmit}

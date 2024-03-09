@@ -1,6 +1,6 @@
 export const drawTotal = (carritoObjeto) => {
     const total = carritoObjeto.reduce((acc, item) => {
-      return acc + item.price * item.cantidad;
+      return acc + item.basePrice * item.cantidad;
     }, 0);
   
     return (

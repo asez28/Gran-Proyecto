@@ -18,17 +18,27 @@ function ProductCard({ id, title, thumbnailUrl, price, onAddToCart, video }) {
         style={{ width: "200px", borderRadius: "15px" }}
       />
       <p className="price">₪{price}</p>
+
       <button className="btn1" onClick={onAddToCart}>
         <strong>Add to the Cart</strong>
         <div id="container-stars">
           <div id="stars"></div>
         </div>
-
         <div id="glow">
           <div className="circle"></div>
           <div className="circle"></div>
         </div>
       </button>
+      <iframe
+      style={{boxShadow:"8px 11px 22px 0px rgba(24,24,122,1)", borderRadius:"25px", margin: "10px"}}
+        width="270"
+        height="200"
+        src={video}
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
     </div>
   );
 }

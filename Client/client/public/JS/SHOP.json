@@ -1,20 +1,20 @@
 [
     {
-      "price": 229,
+      "price": 225,
       "id": "612f6bda8d2e3853509c3d8a",
-      "title": "Call of duty Modern Warfare II",
-      "thumbnailUrl": "./IMG/FC24.jpg",
-      "video": "https://www.youtube.com/embed/ISc1orDBziY",
+      "title": "Call of duty Modern Warfare III",
+      "thumbnailUrl": "https://exongames.co.il/cdn/shop/files/EXON-CallofDutyModernWarfareIII-StandardEdition-PC-Cover_a3dcbd81-0f71-481f-a163-95225475a2cb.jpg",
+      "video": "https://www.youtube.com/embed/mHDEDDrGYvo?si=btXUqjBz4Ha7LJWD",
       "cantidad" : 1,
-      "basePrice": 229
+      "basePrice": 225
     },
     {
-      "price": 199,
-      "basePrice": 199,
+      "price": 219,
+      "basePrice": 219,
       "id": "612f6bda8d2e3451502c3d1a",
-      "title": "Fifa 23 (Standard Edition)",
-      "thumbnailUrl": "https://i.ibb.co/mGpdpRw/fifa.webp",
-      "video": "https://www.youtube.com/embed/atvZGVyqwq8",
+      "title": "EA SPORTS FC™ 24(Ultimate Edition)",
+      "thumbnailUrl": "https://exongames.co.il/cdn/shop/files/EXON-FC24-UltimateEdition-Cover.webp",
+      "video": "https://www.youtube.com/embed/-vL01jbgENE?si=8xgew7qJtB-UVINT",
       "cantidad" : 1
     },
     {
@@ -69,6 +69,15 @@
         "title": "Dead Island 2",
         "thumbnailUrl": "https://cdn.shopify.com/s/files/1/0526/0663/2093/products/EXON-DeadIsland2-StandardEdition-PC-Cover_360x.jpg?v=1672491379",
         "video": "https://www.youtube.com/embed/abYGYJZBmmY",
+        "cantidad" : 1
+      },
+      {
+        "price": 199,
+        "basePrice": 199,
+        "id": "712f6bda8d2e2755218c3d5a",
+        "title": "Suicide Squad: Kill the Justice League",
+        "thumbnailUrl": "https://exongames.co.il/cdn/shop/files/EXON-SuicideSquadKilltheJusticeLeague-StandardEdition-Cover_e3b80f97-5bc9-4340-8745-8695bbcaab65.jpg",
+        "video": "https://www.youtube.com/embed/uZDGjS5vpIk?si=YYZh72h2okBHAJtx",
         "cantidad" : 1
       }
   ]

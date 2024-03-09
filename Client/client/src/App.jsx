@@ -10,11 +10,13 @@ import Profile from "./pages/Profile";
 import Gallery from "./pages/Gallery";
 import AboutUs from "./pages/AboutUs";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+      <Navbar/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
