@@ -44,7 +44,7 @@ export default function Navbar() {
             src="/IMG/logo.png"
             alt="Game Zone Logo"
           />
-          <h1 className="navbar-brand">Game Zone 🎮</h1>
+          <Link to="/"><h1 className="navbar-brand">Game Zone 🎮</h1></Link>
           <FontAwesomeIcon
             icon={faBars}
             className="menu-hamburger"

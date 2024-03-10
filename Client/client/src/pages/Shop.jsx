@@ -54,11 +54,12 @@ function Shop() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
+      
       }}
     >
       <link rel="stylesheet" type="text/css" href="/CSS/shop.css" />
       <link rel="stylesheet" type="text/css" href="/CSS/deletebtn.css" />
-      <div className="container" style={{ paddingTop: "100px" }}>
+      <div className="container" style={{ paddingTop: "120px" }}>
         <div className="row">
           {products.map((product) => (
             <div key={product.id} className="col-md-4">

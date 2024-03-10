@@ -80,7 +80,7 @@ function Checkout() {
       backgroundPosition: "center",
       minHeight: "100vh"
     }} >
-      <div className="container"  style={{ paddingTop: "90px"}}>
+      <div className="container"  style={{ paddingTop: "120px"}}>
         <div className="card text-white" style={{backgroundColor: "rgba(147, 0, 10, 0.400)", backdropFilter: "blur(5px)"}}>
         <div className="m-3">
           <h2>Ordering and delivery Details</h2>

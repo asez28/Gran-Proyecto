@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import VideoPlayer from "./VideoPlayer";
 
 const HomePagescontainer = () => {
   return (
@@ -29,30 +30,7 @@ const HomePagescontainer = () => {
             </button>
           </div>
         </div>
-        <div className="video col-lg-5 col-md-6 p-5">
-          <h4>BEST GAMES OF 2023</h4>
-          <video
-            id="my-video"
-            className="video-js vjs-theme-sea"
-            controls
-            preload="auto"
-            width="450"
-            height="264"
-            poster="https://www.dsogaming.com/wp-content/uploads/2023/12/top-10-best-optimized-pc-games-2023-768x426.jpg"
-            data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://youtu.be/31LQRQMHWo0?si=dEx2qWNB-SVEzTHq"}] }'
-          >
-            <p className="vjs-no-js">
-              To view this video please enable JavaScript, and consider
-              upgrading to a web browser that
-              <a
-                href="https://videojs.com/html5-video-support/"
-                target="_blank"
-              >
-                supports HTML5 video
-              </a>
-            </p>
-          </video>
-        </div>
+        <VideoPlayer/>
         <div className="col-lg-3 col-md-12 mt-3">
         <h4 className="text-warning bg-dark">TOP SALES</h4>
         <img className="picture p-1" src="./IMG/CODMW3.jpg" style={{ width: '80px' }} />

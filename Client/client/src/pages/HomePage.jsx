@@ -2,6 +2,16 @@ import React, { useEffect } from "react";
 import HomePagescontainer from "../components/HomePagescontainer.jsx";
 
 function HomePage() {
+
+  useEffect(() => {
+    document.body.classList.add('hide-footer');
+
+    return () => {
+      document.body.classList.remove('hide-footer');
+    };
+  }, []);
+
+
   useEffect(() => {
     document.title = "Welcome";
   }, []);

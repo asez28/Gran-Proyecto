@@ -11,6 +11,7 @@ import Gallery from "./pages/Gallery";
 import AboutUs from "./pages/AboutUs";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -23,13 +24,14 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about-us" element={<AboutUs />} />
-
+          
           <Route element={<ProtectedRoute />}>
             <Route path="/shop" element={<Shop />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </AuthProvider>
   );
